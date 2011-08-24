@@ -1,0 +1,91 @@
+<html>
+<head>
+    <LINK href="css/main.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/decoder.js"></script>
+</head>
+
+<body>
+<div id="header">
+    <img id="logo" src="images/ghack-logo.png"/>
+
+    <div id="tabNav">
+        <a href="/" class="tab tabInactive">Encode</a>
+        <a href="#" class="tab tabActive">Decode</a>
+    </div>
+
+</div>
+
+
+<br/> <br/>
+
+<div id="dropbox">
+    <br/><br/>
+    <span id="droplabel">Drop Encoded Image Here</span>
+</div>
+
+<br/><br/>
+
+<br clear="all"/>
+<div id="result">
+    <b>The secret message was: </b>
+    <br/> <br/>
+</div>
+
+<canvas id="outputCanvas"></canvas>
+
+
+
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            var dropbox = document.getElementById("dropbox");
+            console.log("Dropbox: ", dropbox);
+
+            // init event handlers
+            dropbox.addEventListener("dragenter", noop, false);
+            dropbox.addEventListener("dragexit", noop, false);
+            dropbox.addEventListener("dragover", noop, false);
+            dropbox.addEventListener("drop", drop, false);
+
+            function noop(evt) {
+
+                console.log("NOOP");
+                evt.stopPropagation();
+                evt.preventDefault();
+            }
+
+            function drop(evt) {
+                evt.stopPropagation();
+                evt.preventDefault();
+
+                var files = evt.dataTransfer.files;
+                var count = files.length;
+
+                // Only call the handler if 1 or more files was dropped.
+                if (count > 0) {
+                    var file = files[0];
+
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        console.log("E: ", e);
+                        var decoder = new Decoder(e.target.result);
+                    };
+
+                    reader.readAsDataURL(file);
+
+                }
+
+            }
+
+
+
+
+        }
+    );
+</script>
+</body>
+</html>
+

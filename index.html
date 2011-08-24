@@ -1,14 +1,97 @@
 <html>
-<head>
+    <head>
+        <LINK href="css/main.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/base.js"></script>
+        <script type="text/javascript" src="js/encoder.js"></script>
+    </head>
 
-</head>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script type="text/javascript" src="js/base.js"></script>
-<body>
+    <body>
+        <div id="header">
+            <img id="logo" src="images/ghack-logo.png"/>
 
-<h1>Steganography</h1>
+            <div id="tabNav">
+                <a href="#" class="tab tabActive">Encode</a>
+                <a href="/decode.html" class="tab tabInactive">Decode</a>
+            </div>
 
-sr
+        </div>
 
-</body>
+
+        <h2>Three Easy Steps</h2>
+
+        <br/> <br/>
+
+        <div id="dropbox">
+            <br/><br/>
+            <span id="droplabel">Drop Image File Here</span>
+        </div>
+
+
+        <textarea id="msgText" rows="2" cols="20">Type your secret message here</textarea>
+
+        <input type="submit" value="Encode" id="encodeButton"/>
+
+        <br/><br/>
+
+        <br clear="all"/>
+        <div id="result">
+            <b>This image has your secret message in it: </b><br/>
+            <canvas id="outputCanvas"></canvas>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(
+                function() {
+                    window.enc = new Encoder();
+
+                    var dropbox = document.getElementById("dropbox");
+                    console.log("Dropbox: ", dropbox);
+
+                    // init event handlers
+                    dropbox.addEventListener("dragenter", noop, false);
+                    dropbox.addEventListener("dragexit", noop, false);
+                    dropbox.addEventListener("dragover", noop, false);
+                    dropbox.addEventListener("drop", drop, false);
+
+                    function noop(evt) {
+
+                        console.log("NOOP");
+                        evt.stopPropagation();
+                        evt.preventDefault();
+                    }
+
+                    function drop(evt) {
+                        evt.stopPropagation();
+                        evt.preventDefault();
+
+                        var files = evt.dataTransfer.files;
+                        var count = files.length;
+
+                        // Only call the handler if 1 or more files was dropped.
+                        if (count > 0) {
+                            var file = files[0];
+
+                            var reader = new FileReader();
+
+                            reader.onload = function(e) {
+                                enc.addImage(e.target.result);
+                            };
+                            reader.readAsDataURL(file);
+
+                        }
+                    }
+
+                    $('#encodeButton').click(
+                        function() {
+                            if (!enc.dataUrl) {
+                                alert("Drag in an image file first");
+                            }
+                            enc.encode($('#msgText').val());
+                        }
+                    );
+                }
+            );
+        </script>
+    </body>
 </html>

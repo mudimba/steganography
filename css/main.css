@@ -1,0 +1,105 @@
+#header {
+    background: url(/images/ghack-header.png) repeat-x;
+    width: 100%;
+    height: 287px;
+    position: relative;
+}
+#tabNav {
+    width: 300px;
+    height: 54px;
+    position: absolute;
+    right: 150px;
+    top: 180px;
+}
+.tab {
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-family: sans-serif;
+}
+.tabInactive {
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(105, 120, 155)),
+        color-stop(0.62, rgb(148, 162, 198))
+    );
+}
+
+.tabActive {
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.24, rgb(145, 161, 196)),
+        color-stop(0.62, rgb(119, 134, 169))
+    );
+}
+
+#logo {
+    position: absolute;
+    left: 120px;
+    top: 0;
+}
+h2 {
+    color: #6572bb;
+    font-family: sans-serif;
+    font-size: 30px;
+    margin: 20px;
+
+}
+#dropbox {
+    width: 250px;
+    height: 250px;
+    background-color: #ddd;
+    border-radius: 8px;
+    border: 1px solid black;
+    text-align: center;
+    float: left;
+    margin: 25px;
+}
+
+#droplabel {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#msgText {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    border: 1px solid black;
+    float: left;
+    margin: 25px;
+    font-size: 15px;
+    padding: 15px;
+}
+
+#encodeButton,
+#decodeButton {
+    width: 141px;
+    height: 35px;
+    background-color: #5589ac;
+    border-radius: 5px;
+    border: 1px solid #86b5d5;
+    text-align: center;
+    margin: 25px;
+    float: left;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#outputCanvas {
+    display: none;
+}
+
+#result {
+    display: none;
+}
